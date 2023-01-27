@@ -10,3 +10,12 @@ void Personnage::parler(const string &message) const
 {
     cout << message << endl;
 }
+
+Personnage::Personnage()
+        : Personnage("FNU", "wat")
+{}
+
+Personnage::Personnage(const std::string &name,
+                       const std::string &pv)
+        : name(name), pv(pv)
+{}

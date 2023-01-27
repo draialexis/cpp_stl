@@ -14,6 +14,11 @@ private:
     std::string pv;
 public:
     virtual void parler(const std::string &message) const;
+
+    Personnage();
+
+    Personnage(const std::string &name,
+               const std::string &pv);
 };
 
 
