@@ -20,3 +20,6 @@ const string &Personnage::name() const
 {
     return m_name;
 }
+
+Personnage::~Personnage()
+= default;
