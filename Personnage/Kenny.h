@@ -12,9 +12,7 @@ class Kenny : public Personnage
 {
 public:
     void parler(const std::string &message) const override;
-
-    explicit Kenny(const std::string &name = "Kenny",
-          const std::string &pv = "huh?");
+    using Personnage::Personnage;
 };
 
 
