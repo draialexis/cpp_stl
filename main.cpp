@@ -93,7 +93,10 @@ int main()
 
 
     // we copied pointers in vanime, we didn't call 'new()' -- no need to delete from both collections
-    for_each(vanime.begin(), vanime.end(), [](auto *x)
-    { delete x; });
+    //for_each(vanime.begin(), vanime.end(), [](auto *x)
+    //{ delete x; });
+
+    for(auto character : vanime )
+        delete character;
     return 0;
 }
