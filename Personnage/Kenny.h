@@ -12,11 +12,7 @@ class Kenny : public Personnage
 {
 public:
     void parler(const std::string &message) const override;
-
-    Kenny();
-
-    Kenny(const std::string &name,
-          const std::string &pv);
+    using Personnage::Personnage;
 };
 
 

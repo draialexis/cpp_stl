@@ -12,10 +12,3 @@ void Kenny::parler(const string &message) const
     cout << "MMmmmhhmmmm" << endl;
 }
 
-Kenny::Kenny() : Kenny("Kenny", "huh?")
-{}
-
-Kenny::Kenny(const std::string &name,
-             const std::string &pv)
-        : Personnage(name, pv)
-{}
