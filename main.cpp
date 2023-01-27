@@ -17,5 +17,14 @@ int main()
         character->parler("Hey dude.");
     }
 
+    cout << endl;
+    anime.front()->parler("I'm in the front");
+    anime.back()->parler("I'm in the back");
+
+    Personnage *second = *(next(anime.begin()));
+    cout << endl;
+    second->parler("I'm here too");
+    // that sucked
+
     return 0;
 }
