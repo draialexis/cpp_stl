@@ -17,10 +17,10 @@ Personnage::Personnage()
 
 Personnage::Personnage(const std::string &name,
                        const std::string &pv)
-        : name(name), pv(pv)
+        : m_name(name), m_pv(pv)
 {}
 
-const string &Personnage::getName() const
+const string &Personnage::name() const
 {
-    return name;
+    return m_name;
 }

@@ -10,12 +10,12 @@
 class Personnage
 {
 private:
-    std::string name;
-    std::string pv;
+    std::string m_name;
+    std::string m_pv;
 public:
     virtual void parler(const std::string &message) const;
 
-    const std::string &getName() const;
+    const std::string &name() const;
 
     Personnage();
 
