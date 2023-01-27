@@ -11,10 +11,6 @@ void Personnage::parler(const string &message) const
     cout << message << endl;
 }
 
-Personnage::Personnage()
-        : Personnage("FNU", "wat")
-{}
-
 Personnage::Personnage(const std::string &name,
                        const std::string &pv)
         : m_name(name), m_pv(pv)

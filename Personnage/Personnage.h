@@ -17,10 +17,8 @@ public:
 
     const std::string &name() const;
 
-    Personnage();
-
-    Personnage(const std::string &name,
-               const std::string &pv);
+    explicit Personnage(const std::string &name = "FNU",
+               const std::string &pv = "wat");
 };
 
 
