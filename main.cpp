@@ -2,6 +2,7 @@
 #include <string>
 #include <list>
 #include <algorithm>
+#include <vector>
 #include "Personnage/Personnage.h"
 #include "Personnage/Kenny.h"
 

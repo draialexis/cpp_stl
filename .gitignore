@@ -111,3 +111,5 @@ fabric.properties
 *.out
 *.app
 
+
+CMakeLists.txt.user
