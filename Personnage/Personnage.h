@@ -15,6 +15,8 @@ private:
 public:
     virtual void parler(const std::string &message) const;
 
+    const std::string &getName() const;
+
     Personnage();
 
     Personnage(const std::string &name,

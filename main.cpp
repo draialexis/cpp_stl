@@ -11,7 +11,9 @@ using namespace std;
 int main()
 {
 
-    list<Personnage *> anime = {new Personnage(), new Kenny(), new Kenny()};
+    list<Personnage *> anime = {new Personnage("Eric", "pv"),
+                                new Kenny(),
+                                new Kenny("Benny", "pv")};
 
     for (Personnage *character: anime)
     {
@@ -28,7 +30,7 @@ int main()
     // that sucked
 
     cout << endl;
-    anime.insert(next(anime.begin()), new Personnage());
+    anime.insert(next(anime.begin()), new Personnage("Stan", "pv"));
 
     for (Personnage *character: anime)
     {
@@ -54,7 +56,7 @@ int main()
 
     cout << endl;
     vanime[2]->parler("I'm third");
-    vanime.insert(next(vanime.begin()), new Personnage());
+    vanime.insert(next(vanime.begin()), new Personnage("Kyle", "pv"));
     // same as with the list...
 
     cout << endl;
@@ -62,6 +64,31 @@ int main()
     {
         character->parler("Hey dude.");
     }
+
+    Personnage *alpha = vanime.front();
+    Personnage *omega = vanime.front();
+
+    for_each(
+            vanime.begin(),
+            vanime.end(),
+            [&alpha, &omega](Personnage *x)
+            {
+                // alpha's name is "greater" than x's name,
+                // alpha should be "smallest",
+                // fix that
+                if (alpha->getName().compare(x->getName()) > 0)
+                { alpha = x; }
+
+                // omega's name is "smaller" than x's name,
+                // omega should be "greatest",
+                // fix that
+                if (omega->getName().compare(x->getName()) < 0)
+                { omega = x; }
+            });
+
+    cout << endl << "alpha: " << alpha->getName() << " omega: " << omega->getName() << endl;
+
+
 
 
     // we copied pointers in vanime, we didn't call 'new()' -- no need to delete from both collections

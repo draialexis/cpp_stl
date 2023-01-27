@@ -19,3 +19,8 @@ Personnage::Personnage(const std::string &name,
                        const std::string &pv)
         : name(name), pv(pv)
 {}
+
+const string &Personnage::getName() const
+{
+    return name;
+}
