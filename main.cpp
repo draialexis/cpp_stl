@@ -89,14 +89,7 @@ int main()
 
     cout << endl << "alpha: " << alpha->name() << " omega: " << omega->name() << endl;
 
-
-
-
-    // we copied pointers in vanime, we didn't call 'new()' -- no need to delete from both collections
-    //for_each(vanime.begin(), vanime.end(), [](auto *x)
-    //{ delete x; });
-
-    for(auto character : vanime )
+    for (auto character: vanime)
         delete character;
     return 0;
 }

@@ -18,7 +18,7 @@ public:
     const std::string &name() const;
 
     explicit Personnage(const std::string &name = "FNU",
-               const std::string &pv = "wat");
+                        const std::string &pv = "wat");
 
     virtual ~Personnage();
 };

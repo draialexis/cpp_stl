@@ -12,6 +12,7 @@ class Kenny : public Personnage
 {
 public:
     void parler(const std::string &message) const override;
+
     using Personnage::Personnage;
 };
 
