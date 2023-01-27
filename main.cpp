@@ -77,17 +77,17 @@ int main()
                 // alpha's name is "greater" than x's name,
                 // alpha should be "smallest",
                 // fix that
-                if (alpha->getName().compare(x->getName()) > 0)
+                if (alpha->name().compare(x->name()) > 0)
                 { alpha = x; }
 
                 // omega's name is "smaller" than x's name,
                 // omega should be "greatest",
                 // fix that
-                if (omega->getName().compare(x->getName()) < 0)
+                if (omega->name().compare(x->name()) < 0)
                 { omega = x; }
             });
 
-    cout << endl << "alpha: " << alpha->getName() << " omega: " << omega->getName() << endl;
+    cout << endl << "alpha: " << alpha->name() << " omega: " << omega->name() << endl;
 
 
 
