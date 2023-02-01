@@ -12,9 +12,9 @@ using namespace std;
 int main()
 {
 
-    list<Personnage *> anime = {new Personnage("Eric", "pv"),
+    list<Personnage *> anime = {new Personnage("Eric", 8),
                                 new Kenny(),
-                                new Kenny("Benny", "pv")};
+                                new Kenny("Benny", 13)};
 
     for (Personnage *character: anime)
     {
@@ -31,7 +31,7 @@ int main()
     // that sucked
 
     cout << endl;
-    anime.insert(next(anime.begin()), new Personnage("Stan", "pv"));
+    anime.insert(next(anime.begin()), new Personnage("Stan", 12));
 
     for (Personnage *character: anime)
     {
@@ -57,7 +57,8 @@ int main()
 
     cout << endl;
     vanime[2]->parler("I'm third");
-    vanime.insert(next(vanime.begin()), new Personnage("Kyle", "pv"));
+    auto kyle = new Personnage("Kyle", 15);
+    vanime.insert(next(vanime.begin()), kyle);
     // same as with the list...
 
     cout << endl;
@@ -87,9 +88,45 @@ int main()
                 { omega = x; }
             });
 
-    cout << endl << "alpha: " << alpha->name() << " omega: " << omega->name() << endl;
+    cout << endl << "alpha: " << alpha->name() << " omega: " << omega->name() << endl << endl;
 
-    for (auto character: vanime)
+    // delete only element only present in vanime
+    delete kyle;
+
+    auto *otherKenny = new Kenny("Kenny", 18);
+    anime.push_front(otherKenny);
+
+    for (Personnage *character: anime)
+    {
+        cout << character->name() << ":\n\t";
+        character->parler("hi");
+    }
+    cout << endl;
+
+    auto begin = vanime.begin();
+    auto end = vanime.end();
+
+    for (auto p = begin; p != end; ++p)
+    {
+        cout << "typeid(character) == typeid(Kenny): "
+             << typeid(*p).name() << "==" << typeid(Kenny).name() << ": "
+             << (typeid(*p) == typeid(Kenny))
+             << endl << endl;
+
+        // FIXME
+        if (typeid(*p) == typeid(Kenny))
+        {
+            vanime.erase(p);
+        }
+    }
+
+    for (Personnage *character: anime)
+    {
+        cout << character->name() << ":\n\t";
+        character->parler("I survived");
+    }
+
+    for (auto character: anime)
         delete character;
     return 0;
 }
