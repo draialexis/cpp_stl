@@ -105,7 +105,7 @@ int main()
     // delete only element only present in vanime
     delete kyle;
 
-    auto *otherKenny = new Kenny("Kenny", 18);
+    auto *otherKenny = new Kenny("Kenny", 12);
     anime.push_back(otherKenny);
 
     for (Personnage *character: anime)
@@ -216,6 +216,17 @@ int main()
     for (auto character: vanime)
     {
         cout << character->name() << endl;
+    }
+
+
+    sort(vanime.begin(), vanime.end(), [](Personnage *p1, Personnage *p2)
+    {
+        return (p1->hp() != p2->hp()) ? (p1->hp() < p2->hp()) : (p1->name() < p2->name());
+    });
+
+    for (auto character: vanime)
+    {
+        cout << character->name() << " : " << character->hp() << endl;
     }
 
     for (auto character: anime)
