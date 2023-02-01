@@ -7,15 +7,26 @@
 #include "Personnage/Personnage.h"
 #include "Personnage/Kenny.h"
 
-
 using namespace std;
+
+Personnage *find_half_dead(int hp, list<Personnage *> &liste)
+{
+    for (auto character: liste)
+    {
+        if (character->hp() <= hp)
+        {
+            return character;
+        }
+    }
+    return nullptr;
+}
 
 int main()
 {
 
-    list<Personnage *> anime = {new Personnage("Eric", 8),
+    list<Personnage *> anime = {new Personnage("Eric", 1),
                                 new Kenny(),
-                                new Kenny("Benny", 13)};
+                                new Kenny("Benny", 2)};
 
     for (Personnage *character: anime)
     {
@@ -168,8 +179,43 @@ int main()
         // does not display in main terminal
     }
 
-    for(const auto& kvp: mm) {
+    for (const auto &kvp: mm)
+    {
         cout << kvp.first << " => " << kvp.second << endl;
+    }
+
+    for (auto character: anime)
+    {
+        if (character->hp() < 3)
+        {
+            cout << "found one: " << character->name() << "(" << character << ")" << endl;
+            break;
+        }
+    }
+
+    for (auto character: vanime)
+    {
+        if (character->hp() < 3)
+        {
+            cout << "found one: " << character->name() << "(" << character << ")" << endl;
+            break;
+        }
+    }
+
+    auto x = find_half_dead(4, anime);
+    if (x != nullptr)
+    {
+        cout << "found one with function: " << x->name() << "(" << x << ")" << endl;
+    }
+
+    sort(vanime.begin(), vanime.end(), [](Personnage *p1, Personnage *p2)
+    {
+        return p1->name() < p2->name();
+    });
+
+    for (auto character: vanime)
+    {
+        cout << character->name() << endl;
     }
 
     for (auto character: anime)
