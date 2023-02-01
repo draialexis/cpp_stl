@@ -163,7 +163,13 @@ int main()
         }
     } catch (const exception &e)
     {
-        throw;
+        cout << "no luck" << endl;
+        // cerr << "no luck" << endl;
+        // does not display in main terminal
+    }
+
+    for(const auto& kvp: mm) {
+        cout << kvp.first << " => " << kvp.second << endl;
     }
 
     for (auto character: anime)
