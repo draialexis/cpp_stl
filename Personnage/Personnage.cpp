@@ -12,8 +12,8 @@ void Personnage::parler(const string &message) const
 }
 
 Personnage::Personnage(const std::string &name,
-                       const std::string &pv)
-        : m_name(name), m_pv(pv)
+                       const int &hp)
+        : m_name(name), m_hp(hp)
 {}
 
 const string &Personnage::name() const

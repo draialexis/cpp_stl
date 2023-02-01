@@ -11,14 +11,14 @@ class Personnage
 {
 private:
     std::string m_name;
-    std::string m_pv;
+    int m_hp;
 public:
     virtual void parler(const std::string &message) const;
 
     const std::string &name() const;
 
     explicit Personnage(const std::string &name = "FNU",
-                        const std::string &pv = "wat");
+                        const int &hp = 10);
 
     virtual ~Personnage();
 };
