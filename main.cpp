@@ -94,7 +94,7 @@ int main()
     delete kyle;
 
     auto *otherKenny = new Kenny("Kenny", 18);
-    anime.push_front(otherKenny);
+    anime.push_back(otherKenny);
 
     for (Personnage *character: anime)
     {
@@ -122,8 +122,20 @@ int main()
 
     for (Personnage *character: anime)
     {
-        cout << character->name() << ":\n\t";
         character->parler("I survived");
+    }
+
+    string name = "aziudga";
+    for (int i = 0; i < 10; ++i)
+    {
+        name += std::to_string(i);
+        anime.push_back(new Personnage(name, int(name.length())));
+    }
+
+    for (Personnage *character: anime)
+    {
+        character->parler("sup");
+        cout << character->hp() << " HP" << endl;
     }
 
     for (auto character: anime)

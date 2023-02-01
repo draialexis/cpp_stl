@@ -8,7 +8,7 @@ using namespace std;
 
 void Personnage::parler(const string &message) const
 {
-    cout << message << endl;
+    cout << m_name << ":\n\t" << message << endl;
 }
 
 Personnage::Personnage(const std::string &name,
@@ -19,6 +19,11 @@ Personnage::Personnage(const std::string &name,
 const string &Personnage::name() const
 {
     return m_name;
+}
+
+const int &Personnage::hp() const
+{
+    return m_hp;
 }
 
 Personnage::~Personnage()

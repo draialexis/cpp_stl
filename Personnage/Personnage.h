@@ -16,6 +16,7 @@ public:
     virtual void parler(const std::string &message) const;
 
     const std::string &name() const;
+    const int &hp() const;
 
     explicit Personnage(const std::string &name = "FNU",
                         const int &hp = 10);
