@@ -155,6 +155,17 @@ int main()
         found->second->parler("wazaaaaaa'");
     }
 
+    try
+    {
+        if (mm.find("Bleaoguroau") == mm.end())
+        {
+            throw exception();
+        }
+    } catch (const exception &e)
+    {
+        throw;
+    }
+
     for (auto character: anime)
         delete character;
     return 0;
