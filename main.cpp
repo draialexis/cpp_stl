@@ -3,6 +3,7 @@
 #include <list>
 #include <algorithm>
 #include <vector>
+#include <map>
 #include "Personnage/Personnage.h"
 #include "Personnage/Kenny.h"
 
@@ -141,6 +142,17 @@ int main()
     for (auto p = anime.rbegin(); p != anime.rend(); ++p)
     {
         (*p)->parler("hey");
+    }
+
+    multimap<string, Personnage *> mm;
+    for (auto character: anime)
+    {
+        mm.insert({character->name(), character});
+    }
+
+    if (auto found = mm.find("Eric"); found != mm.end())
+    {
+        found->second->parler("wazaaaaaa'");
     }
 
     for (auto character: anime)
