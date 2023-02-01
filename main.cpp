@@ -1,4 +1,5 @@
 #include <iostream>
+#include <random>
 #include <string>
 #include <list>
 #include <algorithm>
@@ -228,6 +229,26 @@ int main()
     {
         cout << character->name() << " : " << character->hp() << endl;
     }
+
+    shuffle(vanime.begin(), vanime.end(), std::mt19937(std::random_device()()));
+
+    for (auto character: vanime)
+    {
+        cout << character->name() << endl;
+    }
+
+    // no random access iterators on lists...
+
+    cout << endl << "permutations" << endl << endl;
+    do
+    {
+        for (auto character: vanime)
+        {
+            cout << character->name() << endl;
+        }
+        cout << endl;
+    } while (next_permutation(vanime.begin(), vanime.end()));
+    // FIXME
 
     for (auto character: anime)
         delete character;
