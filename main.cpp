@@ -138,6 +138,11 @@ int main()
         cout << character->hp() << " HP" << endl;
     }
 
+    for (auto p = anime.rbegin(); p != anime.rend(); ++p)
+    {
+        (*p)->parler("hey");
+    }
+
     for (auto character: anime)
         delete character;
     return 0;
