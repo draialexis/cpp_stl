@@ -118,22 +118,10 @@ int main()
     }
     cout << endl;
 
-    auto begin = vanime.begin();
-    auto end = vanime.end();
-
-    for (auto p = begin; p != end; ++p)
-    {
-        cout << "typeid(character) == typeid(Kenny): "
-             << typeid(*p).name() << "==" << typeid(Kenny).name() << ": "
-             << (typeid(*p) == typeid(Kenny))
-             << endl << endl;
-
-        // FIXME
-        if (typeid(*p) == typeid(Kenny))
-        {
-            vanime.erase(p);
-        }
-    }
+    auto found = remove_if(std::begin(vanime), std::end(vanime),
+            [](Personnage *p){return dynamic_cast<Kenny*>(p) != nullptr; }
+    );
+    vanime.erase(found, std::end(vanime));
 
     for (Personnage *character: anime)
     {
