@@ -72,7 +72,7 @@ int main()
 
     cout << endl;
     vanime[2]->parler("I'm third");
-    auto kyle = new Personnage("Kyle", 15);
+    auto kyle = new Personnage("Kyle", 15); // TODO: delete kenny at some point! J'ai pas gratté mais regardez Valgrind!
     vanime.insert(next(vanime.begin()), kyle);
     // same as with the list...
 
