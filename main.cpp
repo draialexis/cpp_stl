@@ -12,6 +12,7 @@ using namespace std;
 
 Personnage *find_half_dead(int hp, list<Personnage *> &liste)
 {
+    // TODO: Essayez d'utilisez un find_if avec une lambda
     for (auto character: liste)
     {
         if (character->hp() <= hp)
@@ -20,6 +21,7 @@ Personnage *find_half_dead(int hp, list<Personnage *> &liste)
         }
     }
     return nullptr;
+
 }
 
 int main()
