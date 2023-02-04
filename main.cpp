@@ -184,14 +184,10 @@ int main()
         }
     }
 
-    for (auto character: vanime)
-    {
-        if (character->hp() < 3)
-        {
-            cout << "found one: " << character->name() << "(" << character << ")" << endl;
-            break;
-        }
-    }
+    auto pv = 3;
+    auto harmed = find_if(std::begin(vanime), std::end(vanime), [pv](auto p){ return p->hp() < pv;});
+    if ( harmed != std::end(vanime) )
+        cout << "found one harmed: " << (*harmed)->name() << "(" << (*harmed) << ")" << endl;
 
     auto x = find_half_dead(4, anime);
     if (x != nullptr)
