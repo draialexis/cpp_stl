@@ -106,7 +106,7 @@ int main()
     cout << endl << "alpha: " << alpha->name() << " omega: " << omega->name() << endl << endl;
 
     // delete only element only present in vanime
-    delete kyle;
+    // delete kyle;  // Ça pue. Kyle est détruit mais son pointeur doit encore être présent dans la liste!
 
     auto *otherKenny = new Kenny("Kenny", 12);
     anime.push_back(otherKenny);
