@@ -12,6 +12,7 @@ using namespace std;
 
 Personnage *find_half_dead(int hp, list<Personnage *> &liste)
 {
+    // TODO: Essayez d'utilisez un find_if avec une lambda
     for (auto character: liste)
     {
         if (character->hp() <= hp)
@@ -20,6 +21,7 @@ Personnage *find_half_dead(int hp, list<Personnage *> &liste)
         }
     }
     return nullptr;
+
 }
 
 int main()
@@ -70,7 +72,7 @@ int main()
 
     cout << endl;
     vanime[2]->parler("I'm third");
-    auto kyle = new Personnage("Kyle", 15);
+    auto kyle = new Personnage("Kyle", 15); // TODO: delete kenny at some point! J'ai pas gratté mais regardez Valgrind!
     vanime.insert(next(vanime.begin()), kyle);
     // same as with the list...
 
@@ -104,7 +106,7 @@ int main()
     cout << endl << "alpha: " << alpha->name() << " omega: " << omega->name() << endl << endl;
 
     // delete only element only present in vanime
-    delete kyle;
+    // delete kyle;  // Ça pue. Kyle est détruit mais son pointeur doit encore être présent dans la liste!
 
     auto *otherKenny = new Kenny("Kenny", 12);
     anime.push_back(otherKenny);
@@ -116,22 +118,10 @@ int main()
     }
     cout << endl;
 
-    auto begin = vanime.begin();
-    auto end = vanime.end();
-
-    for (auto p = begin; p != end; ++p)
-    {
-        cout << "typeid(character) == typeid(Kenny): "
-             << typeid(*p).name() << "==" << typeid(Kenny).name() << ": "
-             << (typeid(*p) == typeid(Kenny))
-             << endl << endl;
-
-        // FIXME
-        if (typeid(*p) == typeid(Kenny))
-        {
-            vanime.erase(p);
-        }
-    }
+    auto found = remove_if(std::begin(vanime), std::end(vanime),
+            [](Personnage *p){return dynamic_cast<Kenny*>(p) != nullptr; }
+    );
+    vanime.erase(found, std::end(vanime));
 
     for (Personnage *character: anime)
     {
@@ -194,14 +184,10 @@ int main()
         }
     }
 
-    for (auto character: vanime)
-    {
-        if (character->hp() < 3)
-        {
-            cout << "found one: " << character->name() << "(" << character << ")" << endl;
-            break;
-        }
-    }
+    auto pv = 3;
+    auto harmed = find_if(std::begin(vanime), std::end(vanime), [pv](auto p){ return p->hp() < pv;});
+    if ( harmed != std::end(vanime) )
+        cout << "found one harmed: " << (*harmed)->name() << "(" << (*harmed) << ")" << endl;
 
     auto x = find_half_dead(4, anime);
     if (x != nullptr)
