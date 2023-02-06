@@ -12,24 +12,19 @@ using namespace std;
 
 Personnage *find_half_dead(int hp, list<Personnage *> &liste)
 {
-    // TODO: Essayez d'utilisez un find_if avec une lambda
-    for (auto character: liste)
-    {
-        if (character->hp() <= hp)
-        {
-            return character;
-        }
-    }
-    return nullptr;
+    auto end = std::end(liste);
+    auto result = find_if(std::begin(liste), end, [hp](auto p)
+    { return p->hp() < hp; });
 
+    return result != end ? *result : nullptr;
 }
 
 int main()
 {
 
-    list<Personnage *> anime = {new Personnage("Eric", 1),
-                                new Kenny(),
-                                new Kenny("Benny", 2)};
+    list < Personnage * > anime = {new Personnage("Eric", 1),
+                                   new Kenny(),
+                                   new Kenny("Benny", 2)};
 
     for (Personnage *character: anime)
     {
@@ -119,7 +114,8 @@ int main()
     cout << endl;
 
     auto found = remove_if(std::begin(vanime), std::end(vanime),
-            [](Personnage *p){return dynamic_cast<Kenny*>(p) != nullptr; }
+                           [](Personnage *p)
+                           { return dynamic_cast<Kenny *>(p) != nullptr; }
     );
     vanime.erase(found, std::end(vanime));
 
@@ -152,9 +148,9 @@ int main()
         mm.insert({character->name(), character});
     }
 
-    if (auto found = mm.find("Eric"); found != mm.end())
+    if (auto found2 = mm.find("Eric"); found2 != mm.end())
     {
-        found->second->parler("wazaaaaaa'");
+        found2->second->parler("wazaaaaaa'");
     }
 
     try
@@ -185,8 +181,9 @@ int main()
     }
 
     auto pv = 3;
-    auto harmed = find_if(std::begin(vanime), std::end(vanime), [pv](auto p){ return p->hp() < pv;});
-    if ( harmed != std::end(vanime) )
+    auto harmed = find_if(std::begin(vanime), std::end(vanime), [pv](auto p)
+    { return p->hp() < pv; });
+    if (harmed != std::end(vanime))
         cout << "found one harmed: " << (*harmed)->name() << "(" << (*harmed) << ")" << endl;
 
     auto x = find_half_dead(4, anime);
@@ -208,7 +205,9 @@ int main()
 
     sort(vanime.begin(), vanime.end(), [](Personnage *p1, Personnage *p2)
     {
-        return (p1->hp() != p2->hp()) ? (p1->hp() < p2->hp()) : (p1->name() < p2->name());
+        return (p1->hp() != p2->hp())
+               ? (p1->hp() < p2->hp())
+               : (p1->name() < p2->name());
     });
 
     for (auto character: vanime)
@@ -234,7 +233,6 @@ int main()
         }
         cout << endl;
     } while (next_permutation(vanime.begin(), vanime.end()));
-    // FIXME
 
     for (auto character: anime)
         delete character;
