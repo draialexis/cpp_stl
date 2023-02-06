@@ -22,67 +22,66 @@ Personnage *find_half_dead(int hp, list<Personnage *> &liste)
 int main()
 {
 
-    list < Personnage * > anime = {new Personnage("Eric", 1),
-                                   new Kenny(),
-                                   new Kenny("Benny", 2)};
+    list<Personnage *> anime_list = {new Personnage("Eric", 1),
+                                     new Kenny(),
+                                     new Kenny("Benny", 2)};
 
-    for (Personnage *character: anime)
+    for (Personnage *character: anime_list)
     {
         character->parler("Hey dude.");
     }
 
     cout << endl;
-    anime.front()->parler("I'm in the front");
-    anime.back()->parler("I'm in the back");
+    anime_list.front()->parler("I'm in the front");
+    anime_list.back()->parler("I'm in the back");
 
-    Personnage *second = *(next(anime.begin()));
+    Personnage *second = *(next(anime_list.begin()));
     cout << endl;
     second->parler("I'm here too");
     // that sucked
 
     cout << endl;
-    anime.insert(next(anime.begin()), new Personnage("Stan", 12));
+    anime_list.insert(next(anime_list.begin()), new Personnage("Stan", 12));
 
-    for (Personnage *character: anime)
+    for (Personnage *character: anime_list)
     {
         character->parler("Hey dude.");
     }
 
     cout << endl;
-    vector<Personnage *> vanime;
+    vector<Personnage *> anime_vector;
 
-    for (Personnage *character: vanime)
+    for (Personnage *character: anime_vector)
     {
         character->parler("Hey dude.");
     }
 
     cout << endl;
-    copy(anime.begin(), anime.end(), back_inserter(vanime));
+    copy(anime_list.begin(), anime_list.end(), back_inserter(anime_vector));
 
 
-    for (Personnage *character: vanime)
+    for (Personnage *character: anime_vector)
     {
         character->parler("Hey dude.");
     }
 
     cout << endl;
-    vanime[2]->parler("I'm third");
-    auto kyle = new Personnage("Kyle", 15); // TODO: delete kenny at some point! J'ai pas gratté mais regardez Valgrind!
-    vanime.insert(next(vanime.begin()), kyle);
-    // same as with the list...
+    anime_vector[2]->parler("I'm third");
+    auto kyle = new Personnage("Kyle", 15);
+    anime_vector.insert(next(anime_vector.begin()), kyle);
 
     cout << endl;
-    for (Personnage *character: vanime)
+    for (Personnage *character: anime_vector)
     {
         character->parler("Hey dude.");
     }
 
-    Personnage *alpha = vanime.front();
-    Personnage *omega = vanime.front();
+    Personnage *alpha = anime_vector.front();
+    Personnage *omega = anime_vector.front();
 
     for_each(
-            vanime.begin(),
-            vanime.end(),
+            anime_vector.begin(),
+            anime_vector.end(),
             [&alpha, &omega](Personnage *x)
             {
                 // alpha's name is "greater" than x's name,
@@ -100,26 +99,32 @@ int main()
 
     cout << endl << "alpha: " << alpha->name() << " omega: " << omega->name() << endl << endl;
 
-    // delete only element only present in vanime
-    // delete kyle;  // Ça pue. Kyle est détruit mais son pointeur doit encore être présent dans la liste!
+    // delete only element only present in anime_vector
+//     delete kyle;  // Ça pue. Kyle est détruit mais son pointeur doit encore être présent dans la liste!
+
+    auto kill = remove_if(std::begin(anime_vector), std::end(anime_vector),
+                          [kyle](Personnage *p)
+                          { return p == kyle; }
+    );
+    anime_vector.erase(kill, std::end(anime_vector));
 
     auto *otherKenny = new Kenny("Kenny", 12);
-    anime.push_back(otherKenny);
+    anime_list.push_back(otherKenny);
 
-    for (Personnage *character: anime)
+    for (Personnage *character: anime_list)
     {
         cout << character->name() << ":\n\t";
         character->parler("hi");
     }
     cout << endl;
 
-    auto found = remove_if(std::begin(vanime), std::end(vanime),
+    auto found = remove_if(std::begin(anime_vector), std::end(anime_vector),
                            [](Personnage *p)
                            { return dynamic_cast<Kenny *>(p) != nullptr; }
     );
-    vanime.erase(found, std::end(vanime));
+    anime_vector.erase(found, std::end(anime_vector));
 
-    for (Personnage *character: anime)
+    for (Personnage *character: anime_list)
     {
         character->parler("I survived");
     }
@@ -128,22 +133,22 @@ int main()
     for (int i = 0; i < 10; ++i)
     {
         name += std::to_string(i);
-        anime.push_back(new Personnage(name, int(name.length())));
+        anime_list.push_back(new Personnage(name, int(name.length())));
     }
 
-    for (Personnage *character: anime)
+    for (Personnage *character: anime_list)
     {
         character->parler("sup");
         cout << character->hp() << " HP" << endl;
     }
 
-    for (auto p = anime.rbegin(); p != anime.rend(); ++p)
+    for (auto p = anime_list.rbegin(); p != anime_list.rend(); ++p)
     {
         (*p)->parler("hey");
     }
 
     multimap<string, Personnage *> mm;
-    for (auto character: anime)
+    for (auto character: anime_list)
     {
         mm.insert({character->name(), character});
     }
@@ -171,7 +176,7 @@ int main()
         cout << kvp.first << " => " << kvp.second << endl;
     }
 
-    for (auto character: anime)
+    for (auto character: anime_list)
     {
         if (character->hp() < 3)
         {
@@ -181,43 +186,43 @@ int main()
     }
 
     auto pv = 3;
-    auto harmed = find_if(std::begin(vanime), std::end(vanime), [pv](auto p)
+    auto harmed = find_if(std::begin(anime_vector), std::end(anime_vector), [pv](auto p)
     { return p->hp() < pv; });
-    if (harmed != std::end(vanime))
+    if (harmed != std::end(anime_vector))
         cout << "found one harmed: " << (*harmed)->name() << "(" << (*harmed) << ")" << endl;
 
-    auto x = find_half_dead(4, anime);
+    auto x = find_half_dead(4, anime_list);
     if (x != nullptr)
     {
         cout << "found one with function: " << x->name() << "(" << x << ")" << endl;
     }
 
-    sort(vanime.begin(), vanime.end(), [](Personnage *p1, Personnage *p2)
+    sort(anime_vector.begin(), anime_vector.end(), [](Personnage *p1, Personnage *p2)
     {
         return p1->name() < p2->name();
     });
 
-    for (auto character: vanime)
+    for (auto character: anime_vector)
     {
         cout << character->name() << endl;
     }
 
 
-    sort(vanime.begin(), vanime.end(), [](Personnage *p1, Personnage *p2)
+    sort(anime_vector.begin(), anime_vector.end(), [](Personnage *p1, Personnage *p2)
     {
         return (p1->hp() != p2->hp())
                ? (p1->hp() < p2->hp())
                : (p1->name() < p2->name());
     });
 
-    for (auto character: vanime)
+    for (auto character: anime_vector)
     {
         cout << character->name() << " : " << character->hp() << endl;
     }
 
-    shuffle(vanime.begin(), vanime.end(), std::mt19937(std::random_device()()));
+    shuffle(anime_vector.begin(), anime_vector.end(), std::mt19937(std::random_device()()));
 
-    for (auto character: vanime)
+    for (auto character: anime_vector)
     {
         cout << character->name() << endl;
     }
@@ -227,14 +232,24 @@ int main()
     cout << endl << "permutations" << endl << endl;
     do
     {
-        for (auto character: vanime)
+        for (auto character: anime_vector)
         {
             cout << character->name() << endl;
         }
         cout << endl;
-    } while (next_permutation(vanime.begin(), vanime.end()));
+    } while (next_permutation(anime_vector.begin(), anime_vector.end()));
+    /* not sure that this is working
+     * shows "Stan
+     *        Eric"
+     * instead of  "Stan
+     *              Eric
+     *
+     *              Eric
+     *              Stan"
+     */
 
-    for (auto character: anime)
+    delete (kyle); // above, we removed the element from the vector, now we free the memory
+    for (auto character: anime_list)
         delete character;
     return 0;
 }
